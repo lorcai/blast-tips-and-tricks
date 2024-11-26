@@ -18,9 +18,33 @@ Look at the `-help`. No seriously look at it. Know your defaults and formats.
 If your output is going to be used by other programs, consider the fields that the program requires. I like using the default `-outfmt 6` format. From the `blastn -help`:
 
 ```
+*** Formatting options
+ -outfmt <String>
+   alignment view options:
+     0 = Pairwise,
+     1 = Query-anchored showing identities,
+     2 = Query-anchored no identities,
+     3 = Flat query-anchored showing identities,
+     4 = Flat query-anchored no identities,
+     5 = BLAST XML,
+     6 = Tabular,
 
-qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
+...
 
+   Options 6, 7, 10 and 17 can be additionally configured to produce
+   a custom format specified by space delimited format specifiers,
+   or in the case of options 6, 7, and 10, by a token specified
+   by the delim keyword. E.g.: "17 delim=@ qacc sacc score".
+   The delim keyword must appear after the numeric output format
+   specification.
+   The supported format specifiers for options 6, 7 and 10 are:
+            qseqid means Query Seq-id
+               qgi means Query GI
+...
+
+   When not provided, the default value is:
+   'qaccver saccver pident length mismatch gapopen qstart qend sstart send
+   evalue bitscore', which is equivalent to the keyword 'std'
  
 ```
 
