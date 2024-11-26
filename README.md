@@ -25,7 +25,7 @@ If your output is going to be used by other programs, consider the fields that t
 This includes the main relevant fields, if you want to add more fields, you can add them at the end (after `send`). Many programs will easily take the default format and you will avoid having to mess with the output:
 
 - [BASTA](https://github.com/timkahlke/BASTA) for consensus-based Last Common Ancestor sequence taxonomy annotation
-- [QIIME2](https://docs.qiime2.org/) you can import the results into a `search-results.qza` artifact.
+- [QIIME2](https://docs.qiime2.org/) you can [import the results into a `search-results.qza` artifact](#loading-a-blast-file-into-qiime2).
 - [blast2taxonomy](https://github.com/tmaruy/blast2taxonomy)
 
 ## Pre-made DBs
