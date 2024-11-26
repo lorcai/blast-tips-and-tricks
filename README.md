@@ -26,7 +26,7 @@ This includes the main relevant fields, if you want to add more fields, you can 
 
 - [BASTA](https://github.com/timkahlke/BASTA) for consensus-based Last Common Ancestor sequence taxonomy annotation
 - [QIIME2](https://docs.qiime2.org/) you can import the results into a `search-results.qza` artifact.
-
+- [blast2taxonomy](https://github.com/tmaruy/blast2taxonomy)
 
 ## Pre-made DBs
 
@@ -64,7 +64,8 @@ Dump the accesion to taxid mapping:
 Got these 2 from: [https://github.com/martin-steinegger/conterminator](https://github.com/steineggerlab/conterminator?tab=readme-ov-file#mapping-file)
 
 Get the taxid in the database for an accesion id (there is a tab in the outfmt string)
-blastdbcmd -db /usr/local/BBDD/nt/nt -entry_batch 98qcov_98pid_Blastout_NTDB_unique_accids.txt -outfmt "%a   %T" > acc2taxid.tsv
+`blastdbcmd -db /usr/local/BBDD/nt/nt -entry_batch accid_list.txt -outfmt "%a   %T" > acc2taxid.tsv`
+
 *Be careful, this seems to retrieve other accids in the taxids corresponding to your queried accds*
 
 ## Loading a BLAST file into QIIME2
