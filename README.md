@@ -18,8 +18,10 @@ Look at the `-help`. No seriously look at it. Know your defaults and formats.
 If your output is going to be used by other programs, consider the fields that the program requires. I like using the default `-outfmt 6` format. From the `blastn -help`:
 
 ```
-   When not provided, the default value is:
-   'qaccver saccver pident length mismatch gapopen qstart qend sstart send
+
+qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
+
+ 
 ```
 
 This includes the main relevant fields, if you want to add more fields, you can add them at the end (after `send`). Many programs will easily take the default format and you will avoid having to mess with the output:
