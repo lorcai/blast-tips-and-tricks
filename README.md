@@ -41,7 +41,7 @@ If you were wondering how to get the `fasta` files for those DBs, a note from NC
 > standalone BLAST programs. See NCBI Insights for more details
 > https://ncbiinsights.ncbi.nlm.nih.gov/2024/01/25/blast-fasta-unavailable-on-ftp/
 
-Some tips on how to dump the DBs [below](https://github.com/lorcai/blast-tips-tricks/edit/main/README.md#dump-the-db)
+Some tips on how to dump the DBs [below](#dump-the-db)
 
 
 ## Avoid certain taxids
