@@ -77,7 +77,7 @@ TODO
 
 # Tricks 
 
-Mostly stuff I haven't seen elsewhere.
+Important know-how's and stuff I haven't seen elsewhere.
 
 ## Dump the DB
 
