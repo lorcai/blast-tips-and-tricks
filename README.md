@@ -1,9 +1,9 @@
 # blast-tips-and-tricks
 A (mostly) empirically acquired collection of BLAST+ tricks and things you should know
 
-STATUS: In never-ending process 💤
-
-Most of these pertain to `blastn`.
+Notes:
+- If unspecified, these pertain to `blastn`.
+- Most are actually obvious if you think them through.
 
 ---
 
@@ -70,21 +70,61 @@ If you were wondering how to get the `fasta` files for those DBs, a note from NC
 Some tips on how to dump the DBs [below](#dump-the-db)
 
 
+## Missing hits of interest
+
+Depending on the parameters and your application, BLAST can miss hits that may be interesting to you.
+
+The `-max_target_seqs` option controls the maximum number of matched sequences that will be kept in the output. This means that aligned sequences beyond this number, will not be included in the output even if they pass the thresholds. 
+
+In this [blog post from Peter Cock](https://blastedbio.blogspot.com/2024/02/blast-max-target-seq-meets-metabarcoding.html), he shows how BLAST may *"miss"* 100% identity hits in favour of longer alignments despite containing more mismatches (I quote *"miss"* because those hits do have better scores, but it's a miss relative to the current objective). If the `-max-target-seqs` is set too low (defaults to 100 in NCBI's web BLAST and 500 in command line BLAST):
+
+```bash
+blastn -help | grep ' -max_target_seqs' -A 5
+
+ -max_target_seqs <Integer, >=1>
+   Maximum number of aligned sequences to keep 
+   (value of 5 or more is recommended)
+   Default = `500'
+    * Incompatible with:  num_descriptions, num_alignments
+```
+
+You can intuitively guess that, for something like amplicon studies it may be better to use as query, only the most informative region (i.e. the amplicon without the primers, which are conserved in your whole amplicon). However, in the case he describes: 
+
+> **It so happens that the first 32bp of our typical Phytophthora amplicons (immediately after the forward primer site) are also conserved - and importantly often missing in published ITS1 sequences**. That means when using NCBI BLAST to check an amplicon, although we hope to see full length perfect matches, the most interesting sequences are often only about 85% of the query (due to the subject match in the database missing the first 32bp) but in the region of 99% to 100% identical. Importantly those hits may not be ranked first by the BLAST e-value or bitscore (but you can change the sort order online).
+
+Just remember what it is that you are really looking for and consider whether the defaults (in output filtering and sorting) are appropiate. In any case you can also play with the `-perc_identity` (% identity) and `-qcov_hsp_perc` (% query cover) options to regulate the output. My go to here lately is to use a high value for `-max-target-seqs` (the design choice of defaulting to 500 in the command line BLAST should tell you something). 
+
+And importantly, be aware how the tool actually works. Read a bit on [how the thresholds are applied](https://gist.github.com/sujaikumar/504b3b7024eaf3a04ef5?permalink_comment_id=1633611#gistcomment-1633611), and be disturbed:
+
+> This can happen because **limits, including max target sequences, are applied in an early ungapped phase of the algorithm, as well as later. In some cases a final HSP will improve enough in the later gapped phase to rise to the top hits. In your case, relaxing the limit to 200 appears to have allowed hits that would have been excluded in the ungapped phase at 100 max target sequences to rise.**
+
 ## Avoid certain taxids
 
 TODO
 
 
+
+
+
+
+
+
+
+
+
+
 # Tricks 
 
-Important know-how's and stuff I haven't seen elsewhere.
+Important know-how's or stuff I haven't seen elsewhere.
 
 ## Dump the DB
 
 Dump all the sequences:
+
 `blastdbcmd -db storage/dbs/nt/nt -entry all > nt.fna`
 
 Dump the accesion to taxid mapping:
+
 `blastdbcmd -db storage/dbs/nt/nt -entry all -outfmt "%a %T" > nt.fna.taxidmapping`
 
 Got these 2 from: [https://github.com/martin-steinegger/conterminator](https://github.com/steineggerlab/conterminator?tab=readme-ov-file#mapping-file)
