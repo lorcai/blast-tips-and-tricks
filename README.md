@@ -76,7 +76,7 @@ Depending on the parameters and your application, BLAST can miss hits that may b
 
 The `-max_target_seqs` option controls the maximum number of matched sequences that will be kept in the output. This means that aligned sequences beyond this number, will not be included in the output even if they pass the thresholds. 
 
-In this [blog post from Peter Cock](https://blastedbio.blogspot.com/2024/02/blast-max-target-seq-meets-metabarcoding.html), he shows how BLAST may *"miss"* 100% identity hits in favour of longer alignments despite containing more mismatches (I quote *"miss"* because those hits do have better scores, but it's a miss relative to the current objective). If the `-max-target-seqs` is set too low (defaults to 100 in NCBI's web BLAST and 500 in command line BLAST):
+In this [blog post from Peter Cock](https://blastedbio.blogspot.com/2024/02/blast-max-target-seq-meets-metabarcoding.html), he shows how BLAST may *"miss"* 100% identity hits in favour of longer alignments despite containing more mismatches (I quote *"miss"* because those hits do have better scores, but it's a miss relative to the current objective). This can happen if the `-max-target-seqs` is set too low (defaults to 100 in NCBI's web BLAST and 500 in command line BLAST):
 
 ```bash
 blastn -help | grep ' -max_target_seqs' -A 5
@@ -94,7 +94,7 @@ You can intuitively guess that, for something like amplicon studies it may be be
 
 Just remember what it is that you are really looking for and consider whether the defaults (in output filtering and sorting) are appropiate. In any case you can also play with the `-perc_identity` (% identity) and `-qcov_hsp_perc` (% query cover) options to regulate the output. My go to here lately is to use a high value for `-max-target-seqs` (the design choice of defaulting to 500 in the command line BLAST should tell you something). 
 
-And importantly, be aware how the tool actually works. Read a bit on [how the thresholds are applied](https://gist.github.com/sujaikumar/504b3b7024eaf3a04ef5?permalink_comment_id=1633611#gistcomment-1633611), and be disturbed:
+And importantly, be aware how the tool actually works. Read a bit on [how the thresholds are applied](https://gist.github.com/sujaikumar/504b3b7024eaf3a04ef5?permalink_comment_id=1633611#gistcomment-1633611), and be disturbed (note that this relates to a different example):
 
 > This can happen because **limits, including max target sequences, are applied in an early ungapped phase of the algorithm, as well as later. In some cases a final HSP will improve enough in the later gapped phase to rise to the top hits. In your case, relaxing the limit to 200 appears to have allowed hits that would have been excluded in the ungapped phase at 100 max target sequences to rise.**
 
