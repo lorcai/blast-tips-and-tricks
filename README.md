@@ -103,14 +103,9 @@ And importantly, be aware how the tool actually works. Read a bit on [how the th
 TODO
 
 
+## On parallelization
 
-
-
-
-
-
-
-
+TODO
 
 
 # Tricks 
@@ -188,3 +183,14 @@ feature4	*	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 This is an `awk` based script that loads the `ncbitax2lin` mapping file into an associative array with TaxIDs as keys and the taxonomic string as values. Then, the BLAST results file is read and when the TaxID in the current line exists in the TaxID-Taxonomy array, it adds the corresponding string in the last field of the BLAST result file.
 
 ---
+
+## Links
+
+Projects, blog posts that may be of interest. I mostly haven't use these but might try or copy something from them.
+
+- [taxdb](https://github.com/lskatz/taxdb). Transform a taxonomy database into sqlite and manipulate it from there
+- [(Another) LCA_BLAST_calculator](https://github.com/gjeunen/LCA_BLAST_calculator)
+- [An old classic](https://www.polarmicrobes.org/somethings-should-be-easy-and-they-are/). You have to export the BLASTDB variable and have the taxonomy files in the same place to get taxonomy in the blast results.
+- [BLASTGrabber: a bioinformatic tool for visualization, analysis and sequence selection of massive BLAST data](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-15-128)
+- [On parallelization](https://www.biostars.org/p/487527/). (Its not as easy to do right as you may think)
+
